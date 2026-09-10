@@ -1,0 +1,15 @@
+.logs {
+  height: 280rpx;
+  padding: 18rpx;
+  box-sizing: border-box;
+  border: 1rpx solid rgba(245, 206, 115, 0.16);
+  border-radius: 8rpx;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.log {
+  padding: 8rpx 0;
+  color: #efe2c5;
+  font-size: 24rpx;
+  line-height: 1.45;
+}

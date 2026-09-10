@@ -1,0 +1,91 @@
+<view class="page-container neo-waiting">
+  <view class="intel-header premium-panel">
+    <view class="intel-meta">
+      <text class="intel-label">房间码</text>
+      <text class="intel-code">{{room.roomCode || '----'}}</text>
+    </view>
+    <button class="cyber-btn-mini gold-outline" open-type="share" bindtap="playTapSound">分享邀请</button>
+  </view>
+
+  <view class="briefing-panel premium-panel">
+    <view class="briefing-stats">
+      <text class="stat-text">已加入 <text class="highlight-gold">{{players.length}} / {{room.maxPlayers || 6}}</text></text>
+      <text class="status-pulse {{isHost ? 'host-mode' : 'wait-mode'}}">{{isHost ? '你是房主' : '等待房主开始'}}</text>
+    </view>
+
+    <block wx:if="{{isHost}}">
+      <view class="cyber-divider"></view>
+      <view class="control-row">
+        <text class="control-label">每回合限时</text>
+        <view class="segmented-control">
+          <view class="seg-item {{turnDuration === 30 ? 'active' : ''}}" data-value="30" bindtap="setDuration">30秒</view>
+          <view class="seg-item {{turnDuration === 60 ? 'active' : ''}}" data-value="60" bindtap="setDuration">60秒</view>
+          <view class="seg-item {{turnDuration === 90 ? 'active' : ''}}" data-value="90" bindtap="setDuration">90秒</view>
+        </view>
+      </view>
+      <view class="control-row">
+        <text class="control-label">人机玩家</text>
+        <button class="cyber-btn-mini dark-fill" disabled="{{!canAddBot}}" loading="{{addingBot}}" bindtap="addBot">添加人机</button>
+      </view>
+    </block>
+  </view>
+
+  <view class="roster-container">
+    <text class="roster-title">玩家列表</text>
+    <scroll-view class="roster-scroll" scroll-y>
+      <view wx:for="{{players}}" wx:key="openId" class="roster-item {{item.isBot ? 'proxy-item' : ''}}">
+        <view class="avatar-hex">
+          <image wx:if="{{item.avatarUrl}}" class="avatar-img" src="{{item.avatarUrl}}" mode="aspectFill"></image>
+          <view wx:else class="avatar-placeholder" style="color: {{item.avatarColor || '#d4af37'}}">
+            <text>{{item.avatarEmoji || '👤'}}</text>
+          </view>
+        </view>
+
+        <view class="operative-info">
+          <text class="op-name">{{item.nickName}}</text>
+          <text class="op-class {{item.isHost ? 'class-cmd' : (item.isBot ? 'class-ai' : 'class-agent')}}">
+            {{item.isHost ? '房主' : (item.isBot ? '人机' : '玩家')}}
+          </text>
+        </view>
+
+        <button wx:if="{{isHost && !item.isHost}}" class="cyber-btn-mini danger-outline" data-openid="{{item.openId}}" bindtap="kickPlayer">移出</button>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="chat-panel premium-panel">
+    <view class="chat-head">
+      <text class="chat-title">房间聊天</text>
+      <button class="cyber-btn-mini {{muted ? 'danger-outline' : 'gold-outline'}}" bindtap="toggleVoicePanel">{{muted ? '语音' : '麦克风'}}</button>
+    </view>
+    <scroll-view class="chat-logs" scroll-y>
+      <view wx:if="{{!chatLogs.length}}" class="chat-empty">还没有聊天消息</view>
+      <view wx:for="{{chatLogs}}" wx:key="logKey" class="chat-log {{item.type}}">
+        <text>{{item.text}}</text>
+      </view>
+    </scroll-view>
+    <view class="chat-input-row">
+      <input class="chat-input" value="{{chatInput}}" maxlength="80" confirm-type="send" placeholder="输入聊天内容" bindinput="onChatInput" bindconfirm="sendChat" />
+      <button class="chat-send" bindtap="sendChat">发送</button>
+    </view>
+  </view>
+
+  <view class="launch-sequence">
+    <button wx:if="{{isHost}}" class="cyber-btn btn-gold" disabled="{{players.length < 2}}" loading="{{starting}}" bindtap="startGame">开始对局</button>
+
+    <view class="aux-actions">
+      <button class="cyber-btn btn-dark half" bindtap="openHistory">历史战绩</button>
+      <button class="cyber-btn btn-ghost half" bindtap="backHome">返回大厅</button>
+    </view>
+  </view>
+
+  <view wx:if="{{voicePanel}}" class="voice-panel premium-panel">
+    <view class="voice-head">
+      <text>语音房间</text>
+      <button class="cyber-btn-mini danger-outline" bindtap="toggleVoicePanel">关闭</button>
+    </view>
+    <text class="voice-tip">若微信后台已开通实时语音，点击加入语音后会进入本房间语音频道；开发者工具中无法完整测试，请用真机测试。</text>
+    <button class="cyber-btn btn-dark" bindtap="joinVoice">加入语音</button>
+    <button class="cyber-btn btn-ghost" bindtap="toggleMute">{{muted ? '打开麦克风' : '静音麦克风'}}</button>
+  </view>
+</view>

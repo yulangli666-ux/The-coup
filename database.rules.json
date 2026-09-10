@@ -1,0 +1,14 @@
+{
+  "rooms": {
+    "read": "auth.openid != null",
+    "write": false
+  },
+  "users": {
+    "read": false,
+    "write": false
+  },
+  "roomSecrets": {
+    "read": false,
+    "write": false
+  }
+}

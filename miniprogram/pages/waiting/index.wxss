@@ -1,0 +1,437 @@
+.page-container {
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.neo-waiting {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 40rpx;
+  gap: 32rpx;
+  background-color: #0d0b11;
+  background-image: linear-gradient(180deg, #16121e 0%, #0d0b11 100%);
+  box-sizing: border-box;
+  color: #f7eedc;
+}
+
+.premium-panel {
+  padding: 32rpx;
+  border: 1rpx solid rgba(212, 175, 55, 0.15);
+  border-radius: 12rpx;
+  background: linear-gradient(145deg, #1c1726 0%, #130f1a 100%);
+  box-shadow: 0 16rpx 48rpx rgba(0, 0, 0, 0.6), inset 0 2rpx 4rpx rgba(255, 255, 255, 0.05);
+}
+
+.intel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.intel-meta {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.intel-label {
+  margin-bottom: 8rpx;
+  color: #5a4f73;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 24rpx;
+  letter-spacing: 2rpx;
+}
+
+.intel-code {
+  color: #d4af37;
+  font-family: "Times New Roman", serif;
+  font-size: 72rpx;
+  font-weight: 900;
+  letter-spacing: 12rpx;
+  line-height: 1;
+  text-shadow: 0 4rpx 16rpx rgba(212, 175, 55, 0.3);
+}
+
+.cyber-btn-mini {
+  height: 56rpx;
+  margin: 0;
+  padding: 0 24rpx;
+  border-radius: 4rpx;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 24rpx;
+  font-weight: 800;
+  line-height: 54rpx;
+}
+
+.cyber-btn-mini::after,
+.cyber-btn::after {
+  display: none;
+}
+
+.gold-outline {
+  flex-shrink: 0;
+  border: 1rpx solid #d4af37;
+  color: #d4af37;
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.danger-outline {
+  flex-shrink: 0;
+  border: 1rpx solid #9e2a2b;
+  color: #d94848;
+  background: rgba(158, 42, 43, 0.1);
+}
+
+.dark-fill {
+  border: 1rpx solid #34284b;
+  color: #a295b8;
+  background: #0d0b11;
+}
+
+.briefing-panel {
+  padding: 24rpx 32rpx;
+}
+
+.briefing-stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.stat-text {
+  color: #a295b8;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 24rpx;
+}
+
+.highlight-gold {
+  color: #d4af37;
+  font-size: 26rpx;
+  font-weight: 800;
+}
+
+.status-pulse {
+  flex-shrink: 0;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 22rpx;
+  font-weight: 800;
+}
+
+.host-mode {
+  color: #d4af37;
+  text-shadow: 0 0 8rpx rgba(212, 175, 55, 0.5);
+}
+
+.wait-mode {
+  color: #5a4f73;
+}
+
+.cyber-divider {
+  height: 1rpx;
+  margin: 24rpx 0;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0) 0%, rgba(212, 175, 55, 0.3) 50%, rgba(212, 175, 55, 0) 100%);
+}
+
+.control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18rpx;
+  margin-bottom: 20rpx;
+}
+
+.control-row:last-child {
+  margin-bottom: 0;
+}
+
+.control-label {
+  color: #8c829c;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 24rpx;
+}
+
+.segmented-control {
+  display: flex;
+  padding: 4rpx;
+  border: 1rpx solid #231b30;
+  border-radius: 6rpx;
+  background: #0d0b11;
+}
+
+.seg-item {
+  padding: 8rpx 22rpx;
+  color: #5a4f73;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 24rpx;
+}
+
+.seg-item.active {
+  border-radius: 4rpx;
+  color: #d4af37;
+  background: rgba(212, 175, 55, 0.15);
+  font-weight: 800;
+}
+
+.roster-container {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.chat-panel {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: 14rpx;
+  padding: 24rpx;
+}
+
+.chat-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.chat-title {
+  color: #d4af37;
+  font-size: 26rpx;
+  font-weight: 900;
+}
+
+.chat-logs {
+  max-height: 220rpx;
+  min-height: 140rpx;
+  padding: 14rpx;
+  border: 1rpx solid rgba(90, 79, 115, 0.28);
+  border-radius: 8rpx;
+  background: rgba(13, 11, 17, 0.55);
+  box-sizing: border-box;
+}
+
+.chat-empty {
+  color: #8c829c;
+  font-size: 22rpx;
+}
+
+.chat-log {
+  margin-bottom: 10rpx;
+  color: #f7eedc;
+  font-size: 23rpx;
+  line-height: 1.4;
+}
+
+.chat-log.emoji {
+  color: #f5ce73;
+}
+
+.chat-log.chat {
+  color: #d8ccdf;
+}
+
+.chat-input-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.chat-input {
+  flex: 1;
+  height: 72rpx;
+  padding: 0 18rpx;
+  border: 1rpx solid #34284b;
+  border-radius: 8rpx;
+  box-sizing: border-box;
+  background: #0d0b11;
+  color: #f7eedc;
+  font-size: 24rpx;
+}
+
+.chat-send {
+  width: 120rpx;
+  height: 72rpx;
+  margin: 0;
+  border-radius: 8rpx;
+  color: #0d0b11;
+  background: #d4af37;
+  font-size: 24rpx;
+  font-weight: 900;
+  line-height: 72rpx;
+}
+
+.chat-send::after {
+  display: none;
+}
+
+.roster-title {
+  margin-bottom: 16rpx;
+  padding-left: 8rpx;
+  color: #5a4f73;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 24rpx;
+  letter-spacing: 2rpx;
+}
+
+.roster-scroll {
+  flex: 1;
+  min-height: 0;
+  border-radius: 12rpx;
+}
+
+.roster-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  border: 1rpx solid #231b30;
+  border-radius: 8rpx;
+  background: #16121e;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.4);
+}
+
+.proxy-item {
+  border: 1rpx solid rgba(90, 79, 115, 0.4);
+  background: repeating-linear-gradient(45deg, #16121e, #16121e 20rpx, #0f0c15 20rpx, #0f0c15 40rpx);
+}
+
+.avatar-hex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80rpx;
+  height: 80rpx;
+  flex-shrink: 0;
+  margin-right: 24rpx;
+  border: 1rpx solid #5a4f73;
+  border-radius: 8rpx;
+  background: #0d0b11;
+  overflow: hidden;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 6rpx;
+}
+
+.avatar-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 38rpx;
+}
+
+.operative-info {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.op-name {
+  overflow: hidden;
+  color: #e2dfeb;
+  font-family: "Times New Roman", serif;
+  font-size: 28rpx;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.op-class {
+  margin-top: 4rpx;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 22rpx;
+}
+
+.class-cmd {
+  color: #d4af37;
+}
+
+.class-ai {
+  color: #5a4f73;
+}
+
+.class-agent {
+  color: #8c829c;
+}
+
+.launch-sequence {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.voice-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  margin-top: 12rpx;
+  padding: 24rpx;
+}
+
+.voice-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.voice-tip {
+  color: #cdbfda;
+  font-size: 22rpx;
+  line-height: 1.5;
+}
+
+.cyber-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100rpx;
+  border-radius: 8rpx;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 30rpx;
+  font-weight: 900;
+  letter-spacing: 2rpx;
+  line-height: 100rpx;
+}
+
+.cyber-btn:active {
+  transform: scale(0.98);
+}
+
+.btn-gold {
+  border: 1rpx solid #ffde7a;
+  color: #0d0b11;
+  background: linear-gradient(90deg, #d4af37 0%, #b89227 100%);
+  box-shadow: 0 12rpx 32rpx rgba(212, 175, 55, 0.25);
+}
+
+.btn-dark {
+  border: 1rpx solid #34284b;
+  color: #d4af37;
+  background: #16121e;
+}
+
+.btn-ghost {
+  border: 1rpx dashed #5a4f73;
+  color: #8c829c;
+  background: transparent;
+}
+
+.aux-actions {
+  display: flex;
+  gap: 24rpx;
+}
+
+.half {
+  flex: 1;
+}

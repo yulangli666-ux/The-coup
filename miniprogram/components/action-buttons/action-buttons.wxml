@@ -1,0 +1,20 @@
+<view class="cyber-actions-grid">
+  <button
+    wx:for="{{actions}}"
+    wx:key="key"
+    class="cyber-action-btn {{item.danger ? 'btn-lethal' : 'btn-tactical'}} {{disabled || item.disabled ? 'btn-offline' : ''}}"
+    disabled="{{disabled || item.disabled}}"
+    bindtap="onTap"
+    data-action="{{item.key}}"
+  >
+    <view class="btn-scanline"></view>
+
+    <view class="btn-content">
+      <text class="action-label">{{item.label}}</text>
+      <text class="action-hint">{{item.hint}}</text>
+    </view>
+
+    <view class="btn-deco top-left"></view>
+    <view class="btn-deco bottom-right"></view>
+  </button>
+</view>

@@ -1,0 +1,218 @@
+<view class="game-page cyber-battlefield {{feedbackClass}}">
+  <view class="hud-topbar">
+    <view class="hud-room-intel">
+      <text class="intel-label">房间号</text>
+      <text class="intel-id">{{room.roomCode || '----'}}</text>
+    </view>
+    <view class="hud-controls">
+      <button class="cyber-btn-mini {{soundMuted ? 'danger-outline' : 'success-outline'}}" bindtap="toggleSound">{{soundMuted ? '静音' : '音效'}}</button>
+      <button wx:if="{{me.isHost && room.status === 'playing'}}" class="cyber-btn-mini danger-outline" bindtap="finishGame">结束</button>
+      <button class="cyber-btn-mini {{muted ? 'danger-outline' : 'success-outline'}}" bindtap="toggleVoicePanel">{{muted ? '静麦' : '语音'}}</button>
+      <button wx:if="{{room.status === 'playing'}}" class="cyber-btn-mini danger-outline" bindtap="confirmLeaveRoom">{{me.isHost ? '解散' : '退出'}}</button>
+    </view>
+  </view>
+
+  <view wx:if="{{room.status === 'finished'}}" class="finish premium-panel">
+    <image wx:if="{{winner.avatarUrl}}" class="winner-avatar" src="{{winner.avatarUrl}}" mode="aspectFill"></image>
+    <view wx:else class="winner-avatar avatar-fallback" style="background: {{winner.avatarColor || '#5b4b8a'}}">
+      <text>{{winner.avatarEmoji || '🙂'}}</text>
+    </view>
+    <text class="winner">{{finishTitle}}</text>
+    <button class="primary-btn" bindtap="rematch">再来一局</button>
+    <button class="secondary-btn" bindtap="backHome">返回大厅</button>
+  </view>
+
+  <view wx:else class="tactical-center">
+    <scroll-view wx:if="{{leftPlayers.length}}" class="side-operatives left-side" scroll-y enhanced show-scrollbar="{{false}}">
+      <view wx:for="{{leftPlayers}}" wx:key="openId" class="seat {{item.openId === currentPlayer.openId ? 'active' : ''}} {{item.isAlive ? '' : 'out'}} {{item.isBot ? 'bot' : ''}}">
+        <image wx:if="{{item.avatarUrl}}" class="avatar {{item.openId === currentPlayer.openId ? 'pulse' : ''}}" src="{{item.avatarUrl}}" mode="aspectFill"></image>
+        <view wx:else class="avatar avatar-fallback {{item.openId === currentPlayer.openId ? 'pulse' : ''}}" style="background: {{item.avatarColor || '#5b4b8a'}}">
+          <text>{{item.avatarEmoji || '🙂'}}</text>
+        </view>
+        <view class="seat-info">
+          <text class="seat-name">{{item.nickName}}</text>
+          <view class="seat-stats">
+            <text class="seat-chip">金币 {{item.coins}}</text>
+            <text class="seat-chip">手牌 {{item.handCardsCount}}</text>
+          </view>
+          <text wx:if="{{item.isBot}}" class="bot-tag">人机</text>
+        </view>
+        <text class="voice-dot {{localMutedMap[item.openId] ? 'off' : ''}}">{{localMutedMap[item.openId] ? '静' : '麦'}}</text>
+      </view>
+    </scroll-view>
+
+    <view class="center-board">
+      <view class="turn-indicator premium-panel">
+        <view class="avatar-hex mini-hex">
+          <image wx:if="{{currentPlayer.avatarUrl}}" class="avatar-img" src="{{currentPlayer.avatarUrl}}" mode="aspectFill"></image>
+          <view wx:else class="avatar-fallback avatar-img" style="background: {{currentPlayer.avatarColor || '#5b4b8a'}}">
+            <text>{{currentPlayer.avatarEmoji || '🙂'}}</text>
+          </view>
+        </view>
+        <view class="turn-info">
+          <text class="turn-label">当前回合</text>
+          <text class="turn-name">{{currentPlayer.nickName || '-'}}</text>
+        </view>
+        <view class="countdown-ring">
+          <text class="time">{{timeLeft}}</text>
+          <text class="sec">秒</text>
+        </view>
+      </view>
+
+      <view wx:if="{{pendingText}}" class="pending premium-panel">
+        <text class="pending-label">响应阶段 · {{timeLeft}} 秒</text>
+        <text class="pending-text">{{pendingText}}</text>
+        <view wx:if="{{hasPassedPending}}" class="pending-state">
+          <text>你已选择不响应，等待其他玩家</text>
+        </view>
+        <view wx:elif="{{canChallenge}}" class="pending-actions challenge-actions">
+          <button class="pending-btn challenge-btn" bindtap="challenge">质疑</button>
+          <button class="pending-btn pass-btn" bindtap="passPending">不质疑</button>
+        </view>
+        <view wx:elif="{{canBlock}}" class="pending-actions block-actions">
+          <view class="block-role-list">
+            <button wx:for="{{blockRoles}}" wx:key="role" class="pending-btn block-btn" data-role="{{item.role}}" bindtap="block">{{item.name}}阻挡</button>
+          </view>
+          <button class="pending-btn pass-btn full" bindtap="passPending">忽略</button>
+        </view>
+        <view wx:elif="{{canPassPending}}" class="pending-actions">
+          <button class="pending-btn pass-btn full" bindtap="passPending">不响应</button>
+        </view>
+      </view>
+
+      <view wx:if="{{exchangeOptions.length}}" class="exchange override-modal premium-panel">
+        <view class="modal-header">
+          <text class="glitch-text">大使换牌</text>
+          <text class="modal-desc">{{exchangeTitle}}</text>
+        </view>
+        <view class="card-spreader">
+          <button
+            wx:for="{{exchangeOptions}}"
+            wx:key="index"
+            class="agent-card exchange-card"
+            data-index="{{index}}"
+            disabled="{{exchangeChoosing}}"
+            bindtap="chooseExchangeCard"
+          >
+            <text class="card-title gold-text">{{roleNames[item]}}</text>
+            <text class="card-skill">{{roleDescriptions[item]}}</text>
+          </button>
+        </view>
+      </view>
+
+      <view wx:if="{{discardOptions.length}}" class="exchange override-modal premium-panel">
+        <view class="modal-header">
+          <text class="glitch-text">请选择弃牌</text>
+          <text class="modal-desc">你需要失去一张角色牌，请选择要弃掉的一张。</text>
+        </view>
+        <view class="card-spreader">
+          <button
+            wx:for="{{discardOptions}}"
+            wx:key="index"
+            class="agent-card exchange-card"
+            data-index="{{index}}"
+            disabled="{{discardChoosing}}"
+            bindtap="chooseDiscardCard"
+          >
+            <text class="card-title gold-text">{{roleNames[item]}}</text>
+            <text class="card-skill">{{roleDescriptions[item]}}</text>
+          </button>
+        </view>
+      </view>
+
+      <view class="logs-wrap combat-logs premium-panel">
+        <scroll-view class="logs" scroll-y scroll-with-animation scroll-into-view="{{lastLogId}}">
+          <view wx:for="{{room.gameLogs || []}}" wx:key="logKey" id="{{item.logId}}" class="log-entry {{item.type}}">
+            <text class="log-text">{{item.text}}</text>
+          </view>
+        </scroll-view>
+
+      </view>
+    </view>
+
+    <scroll-view wx:if="{{rightPlayers.length}}" class="side-operatives right-side" scroll-y enhanced show-scrollbar="{{false}}">
+      <view wx:for="{{rightPlayers}}" wx:key="openId" class="seat {{item.openId === currentPlayer.openId ? 'active' : ''}} {{item.isAlive ? '' : 'out'}} {{item.isBot ? 'bot' : ''}}">
+        <image wx:if="{{item.avatarUrl}}" class="avatar {{item.openId === currentPlayer.openId ? 'pulse' : ''}}" src="{{item.avatarUrl}}" mode="aspectFill"></image>
+        <view wx:else class="avatar avatar-fallback {{item.openId === currentPlayer.openId ? 'pulse' : ''}}" style="background: {{item.avatarColor || '#5b4b8a'}}">
+          <text>{{item.avatarEmoji || '🙂'}}</text>
+        </view>
+        <view class="seat-info">
+          <text class="seat-name">{{item.nickName}}</text>
+          <view class="seat-stats">
+            <text class="seat-chip">金币 {{item.coins}}</text>
+            <text class="seat-chip">手牌 {{item.handCardsCount}}</text>
+          </view>
+          <text wx:if="{{item.isBot}}" class="bot-tag">人机</text>
+        </view>
+        <text class="voice-dot {{localMutedMap[item.openId] ? 'off' : ''}}">{{localMutedMap[item.openId] ? '静' : '麦'}}</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view wx:if="{{room.status !== 'finished'}}" class="my-command-center premium-panel">
+    <view class="my-status">
+      <view class="avatar-hex">
+        <image wx:if="{{me.avatarUrl}}" class="avatar-img" src="{{me.avatarUrl}}" mode="aspectFill"></image>
+        <view wx:else class="avatar-fallback avatar-img" style="background: {{me.avatarColor || '#5b4b8a'}}">
+          <text>{{me.avatarEmoji || '🙂'}}</text>
+        </view>
+      </view>
+      <view class="my-assets">
+        <text class="op-name">我：{{me.nickName}}</text>
+        <view class="asset-tags">
+          <text class="tag gold-tag">金币 {{me.coins || 0}}</text>
+          <text class="tag dark-tag">手牌 {{me.handCardsCount || 0}}</text>
+          <text wx:if="{{me.isSpectator}}" class="tag dark-tag">观战</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="emoji-row">
+      <button wx:for="{{emojis}}" wx:key="key" data-emoji="{{item.text}}" bindtap="sendEmoji">{{item.text}}</button>
+    </view>
+
+    <view class="chat-input-row">
+      <input class="chat-input" value="{{chatInput}}" maxlength="80" confirm-type="send" placeholder="输入聊天内容" bindinput="onChatInput" bindconfirm="sendChat" />
+      <button class="chat-send" bindtap="sendChat">发送</button>
+    </view>
+
+    <scroll-view class="my-cards-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="my-cards">
+        <view wx:for="{{myHandCards}}" wx:key="*this" class="agent-card hand-card" data-role="{{item}}" bindtap="showRole">
+          <text class="card-title">{{roleNames[item]}}</text>
+          <text class="card-skill">{{roleDescriptions[item]}}</text>
+        </view>
+      </view>
+    </scroll-view>
+
+    <action-buttons wx:if="{{isMyTurn && !me.isSpectator}}" disabled="{{actionSubmitting}}" player="{{me}}" bind:action="onAction" />
+    <text wx:else class="wait-text">{{me.isSpectator ? '观战模式：可以聊天，但不能操作' : '等待其他玩家行动'}}</text>
+  </view>
+
+  <view wx:if="{{voicePanel}}" class="voice-panel premium-panel">
+    <view class="voice-head">
+      <text>语音房间</text>
+      <button class="ghost-btn" bindtap="toggleVoicePanel">关闭</button>
+    </view>
+    <button class="primary-btn" bindtap="joinVoice">加入语音</button>
+    <button class="secondary-btn" bindtap="toggleMute">{{muted ? '打开麦克风' : '静音麦克风'}}</button>
+    <view wx:for="{{players}}" wx:key="openId" class="voice-player">
+      <image wx:if="{{item.avatarUrl}}" class="mini-avatar" src="{{item.avatarUrl}}" mode="aspectFill"></image>
+      <view wx:else class="mini-avatar avatar-fallback" style="background: {{item.avatarColor || '#5b4b8a'}}">
+        <text>{{item.avatarEmoji || '🙂'}}</text>
+      </view>
+      <text>{{item.nickName}}</text>
+      <button class="ghost-btn" data-openid="{{item.openId}}" bindtap="localMute">{{localMutedMap[item.openId] ? '取消本地静音' : '本地静音'}}</button>
+    </view>
+  </view>
+
+  <view wx:if="{{guideVisible}}" class="guide-mask">
+    <view class="guide premium-panel">
+      <text class="guide-title">新手提示</text>
+      <text>1. 你的角色牌只有自己可见。</text>
+      <text>2. 宣称角色能力时，其他玩家可以质疑或阻挡。</text>
+      <text>3. 金币达到 10 枚必须政变，最后存活者获胜。</text>
+      <button class="primary-btn" bindtap="closeGuide">知道了</button>
+    </view>
+  </view>
+</view>

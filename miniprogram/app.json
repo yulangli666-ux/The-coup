@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/waiting/index",
+    "pages/game/index",
+    "pages/history/index",
+    "pages/rules/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "政变疑云",
+    "navigationBarBackgroundColor": "#120d1f",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#120d1f"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {}
+}

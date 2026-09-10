@@ -1,0 +1,5 @@
+<scroll-view class="logs" scroll-y scroll-with-animation scroll-top="{{scrollTop}}">
+  <view wx:for="{{logs}}" wx:key="at" class="log">
+    <text>{{item.text}}</text>
+  </view>
+</scroll-view>

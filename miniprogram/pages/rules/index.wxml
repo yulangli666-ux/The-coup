@@ -1,0 +1,64 @@
+<view class="rules-page">
+  <view class="rules-hero">
+    <text class="title">游戏规则</text>
+    <text class="subtitle">政变疑云 · 快速上手说明</text>
+  </view>
+
+  <scroll-view class="rules-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="section">
+      <text class="section-title">胜利目标</text>
+      <text class="paragraph">每名玩家开局获得 2 张暗牌和 2 枚金币。你的目标是让其他玩家失去所有手牌，成为最后仍有手牌的玩家。</text>
+      <text class="paragraph">手牌数量代表你的影响力。失去所有手牌后会被淘汰，但仍可观战和发送表情。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">基础流程</text>
+      <view class="step"><text class="step-index">1</text><text class="step-text">轮到你时，选择一个行动。</text></view>
+      <view class="step"><text class="step-index">2</text><text class="step-text">如果行动需要宣称角色，其他玩家可以选择质疑。</text></view>
+      <view class="step"><text class="step-index">3</text><text class="step-text">如果行动可以被阻挡，目标玩家或相关玩家可以阻挡。</text></view>
+      <view class="step"><text class="step-index">4</text><text class="step-text">行动结算后切换到下一名存活玩家。</text></view>
+    </view>
+
+    <view class="section">
+      <text class="section-title">可选行动</text>
+      <view wx:for="{{actions}}" wx:key="name" class="rule-item">
+        <text class="item-name">{{item.name}}</text>
+        <text class="item-desc">{{item.desc}}</text>
+      </view>
+    </view>
+
+    <view class="section">
+      <text class="section-title">角色能力</text>
+      <view wx:for="{{roles}}" wx:key="name" class="role-card">
+        <view class="role-head">
+          <text class="role-name">{{item.name}}</text>
+        </view>
+        <text class="item-desc">{{item.ability}}</text>
+        <text class="item-desc">{{item.block}}</text>
+      </view>
+    </view>
+
+    <view class="section">
+      <text class="section-title">质疑规则</text>
+      <text class="paragraph">当玩家宣称角色行动时，其他存活玩家可以质疑。</text>
+      <text class="paragraph">如果被质疑者没有该角色，质疑成功，被质疑者失去 1 张牌。</text>
+      <text class="paragraph">如果被质疑者确实有该角色，质疑失败，质疑者失去 1 张牌。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">阻挡规则</text>
+      <text class="paragraph">部分行动可以被特定角色阻挡。阻挡本身也相当于宣称角色，因此也可能被质疑。</text>
+      <text class="paragraph">常见阻挡：公爵阻挡外国援助，贵妇阻挡暗杀，队长或大使阻挡偷窃。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">金币提醒</text>
+      <text class="paragraph">金币没有上限。拥有 7 枚金币时可以政变；达到 10 枚金币时必须政变。</text>
+      <text class="paragraph">政变不能被质疑，也不能被阻挡，是最稳定的淘汰手段。</text>
+    </view>
+  </scroll-view>
+
+  <view class="footer">
+    <button class="back-btn" bindtap="backHome">返回大厅</button>
+  </view>
+</view>

@@ -1,0 +1,20 @@
+<view class="page history">
+  <text class="title">历史战绩</text>
+  <view wx:if="{{loading}}" class="empty">正在读取...</view>
+  <view wx:elif="{{!records.length}}" class="empty">暂无已结束对局</view>
+  <view wx:for="{{records}}" wx:key="id" class="record panel">
+    <view class="head">
+      <image wx:if="{{item.winnerAvatar}}" class="avatar" src="{{item.winnerAvatar}}" mode="aspectFill"></image>
+      <view wx:else class="avatar avatar-fallback" style="background: {{item.winnerColor || '#5b4b8a'}}">
+        <text>{{item.winnerEmoji || '🙂'}}</text>
+      </view>
+      <view class="info">
+        <text class="winner">{{item.winnerName}} 获胜</text>
+        <text class="meta">房间 {{item.roomCode}} · {{item.playerCount}} 人 · {{item.finishedText}}</text>
+      </view>
+    </view>
+    <view class="logs">
+      <text wx:for="{{item.logs}}" wx:key="logKey" class="log">{{item.text}}</text>
+    </view>
+  </view>
+</view>

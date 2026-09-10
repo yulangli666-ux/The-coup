@@ -1,0 +1,160 @@
+.cyber-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20rpx;
+  padding: 10rpx;
+}
+
+.cyber-action-btn {
+  position: relative;
+  min-height: 120rpx;
+  margin: 0;
+  padding: 16rpx 24rpx;
+  border-radius: 6rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+  background: #16121e;
+  border: 1rpx solid #34284b;
+  line-height: 1.15;
+  text-align: left;
+}
+
+.cyber-action-btn::after {
+  display: none;
+}
+
+.cyber-action-btn:active:not([disabled]) {
+  transform: scale(0.95);
+}
+
+.btn-content {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  width: 100%;
+}
+
+.btn-tactical {
+  background: linear-gradient(135deg, #1c1726 0%, #130f1a 100%);
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.6);
+}
+
+.btn-tactical .action-label {
+  color: #d4af37;
+}
+
+.btn-lethal {
+  background: linear-gradient(135deg, #2b1114 0%, #1a0a0c 100%);
+  border-color: rgba(158, 42, 43, 0.6);
+  box-shadow: 0 4rpx 16rpx rgba(158, 42, 43, 0.2);
+}
+
+.btn-lethal .action-label {
+  color: #e15241;
+  text-shadow: 0 0 12rpx rgba(225, 82, 65, 0.4);
+}
+
+.btn-offline {
+  background: #09080c !important;
+  border-color: #1a1624 !important;
+  box-shadow: inset 0 0 12rpx rgba(0, 0, 0, 0.8) !important;
+}
+
+.btn-offline .action-label,
+.btn-offline .action-hint {
+  color: #3f3652 !important;
+  text-shadow: none !important;
+}
+
+.action-label {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 900;
+  letter-spacing: 0;
+  font-family: "Times New Roman", serif;
+  line-height: 1.15;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.action-hint {
+  display: block;
+  margin-top: 6rpx;
+  color: #8c829c;
+  font-size: 20rpx;
+  font-family: monospace;
+  letter-spacing: 0;
+  line-height: 1.2;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.btn-deco {
+  position: absolute;
+  width: 12rpx;
+  height: 12rpx;
+  border: 2rpx solid transparent;
+  z-index: 1;
+}
+
+.top-left {
+  top: 6rpx;
+  left: 6rpx;
+  border-left-color: inherit;
+  border-top-color: inherit;
+}
+
+.bottom-right {
+  bottom: 6rpx;
+  right: 6rpx;
+  border-right-color: inherit;
+  border-bottom-color: inherit;
+}
+
+.btn-tactical .btn-deco {
+  border-color: rgba(212, 175, 55, 0.5);
+}
+
+.btn-lethal .btn-deco {
+  border-color: rgba(158, 42, 43, 0.6);
+}
+
+.btn-offline .btn-deco {
+  border-color: #231b30;
+}
+
+.btn-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0) 100%);
+  background-size: 100% 8rpx;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@media (max-width: 390px) {
+  .cyber-actions-grid {
+    gap: 14rpx;
+    padding: 0;
+  }
+
+  .cyber-action-btn {
+    min-height: 112rpx;
+    padding: 14rpx 18rpx;
+  }
+
+  .action-label {
+    font-size: 28rpx;
+  }
+
+  .action-hint {
+    font-size: 18rpx;
+  }
+}

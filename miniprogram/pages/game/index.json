@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "对局中",
+  "usingComponents": {
+    "action-buttons": "/components/action-buttons/action-buttons"
+  }
+}

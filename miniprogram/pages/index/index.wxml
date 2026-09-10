@@ -1,0 +1,39 @@
+<view class="page-container neo-home">
+  <view class="brand-hero">
+    <text class="glitch-title">政变疑云</text>
+    <text class="cyber-subtitle">李玉郎开发个人使用游玩</text>
+  </view>
+
+  <view class="agent-dossier premium-panel">
+    <view class="avatar-frame">
+      <image wx:if="{{userInfo.avatarUrl}}" class="avatar-img" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+      <view wx:else class="avatar-placeholder" style="background: {{userInfo.avatarColor || '#5b4b8a'}}">
+        <text>{{userInfo.avatarEmoji || '👤'}}</text>
+      </view>
+    </view>
+
+    <view class="agent-data">
+      <text class="agent-name">{{userInfo.nickName || '未命名玩家'}}</text>
+      <view class="status-indicator">
+        <view class="led-dot {{openId ? 'led-on' : 'led-off'}}"></view>
+        <text class="status-text">{{openId ? '身份已同步' : '正在登录...'}}</text>
+      </view>
+    </view>
+
+    <view class="dossier-actions">
+      <button class="cyber-btn-mini" bindtap="editName">改名</button>
+      <button class="cyber-btn-mini" bindtap="syncProfile">同步</button>
+    </view>
+  </view>
+
+  <view class="tactical-actions">
+    <button class="cyber-btn btn-gold" loading="{{creating}}" bindtap="createRoom">创建房间</button>
+    <button class="cyber-btn btn-dark" loading="{{joining}}" bindtap="showJoinDialog">加入房间</button>
+    <button class="cyber-btn btn-ghost" loading="{{quickJoining}}" bindtap="quickJoin">快速加入</button>
+  </view>
+
+  <view class="terminal-footer">
+    <button class="ghost-link" bindtap="openHistory">查看历史战绩</button>
+    <button class="ghost-link" bindtap="openRules">游戏规则</button>
+  </view>
+</view>

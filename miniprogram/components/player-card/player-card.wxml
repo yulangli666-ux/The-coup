@@ -1,0 +1,16 @@
+<view class="player {{active ? 'active' : ''}} {{player.isAlive ? '' : 'out'}}">
+  <image wx:if="{{player.avatarUrl}}" class="avatar" src="{{player.avatarUrl}}" mode="aspectFill"></image>
+  <view wx:else class="avatar avatar-fallback" style="background: {{player.avatarColor || '#5b4b8a'}}">
+    <text>{{player.avatarEmoji || '🙂'}}</text>
+  </view>
+  <view class="body">
+    <view class="name-row">
+      <text class="name">{{player.nickName}}</text>
+      <text wx:if="{{player.isHost}}" class="host">房主</text>
+    </view>
+    <view class="meta">
+      <text>{{player.coins}} 金币</text>
+      <text>{{player.handCardsCount}} 手牌</text>
+    </view>
+  </view>
+</view>
