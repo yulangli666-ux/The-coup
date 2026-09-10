@@ -11,7 +11,7 @@
 - 开发方式：独立完成
 - 适用场景：课程设计、项目经历展示、微信小程序原生开发练手、云开发实时对战项目实践
 - 当前状态：可运行，可用于演示与内测，仍可继续迭代优化
-- 作者主页：[yulangli_666](https://github.com/yulangli666-ux/yulangli_666)
+- 作者主页：[https://github.com/yulangli666-ux]
 - 项目体验说明：由于微信小程序联机、云函数与语音能力依赖微信后台配置，GitHub 仓库默认提供源码与部署说明，不直接提供公网试玩地址
 
 ## 项目特色
@@ -326,6 +326,6 @@
 
 李玉郎
 
-- GitHub 主页：[https://github.com/yulangli666-ux/yulangli_666](https://github.com/yulangli666-ux/yulangli_666)
+- GitHub 主页：https://github.com/yulangli666-ux
 - 邮箱：`2090063241@qq.com`
 `
